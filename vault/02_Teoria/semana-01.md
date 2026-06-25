@@ -1,161 +1,225 @@
----
-semana: 1
-tema: Python basico — traduccion desde Java
-estado: pendiente
----
+# Semana 1 — Python basico: mismo concepto, diferente sintaxis
 
-# Semana 1 — Python: mismo concepto, diferente sintaxis
-
-> Tiempo estimado: 2–3 horas (ya sabes programar — esto es mas rapido)
-> Al terminar: `bash scripts/push.sh "semana-01 python basico"`
+> Tiempo estimado: 3–5 horas
+> Al terminar: `bash scripts/push.sh "semana-01 variables y tipos"`
 
 ---
 
-## La gran diferencia
 
-En Java escuchabas: `public static void main(String[] args)`. En Python ese mismo concepto es:
-```python
-# No hay nada que escribir — el archivo ya ES el programa
-print("Hola Mundo")
+---
+
+## Objetivo de la semana
+
+Al terminar, Al terminar esta semana debes poder:
+- Correr su primer programa Python sin errores
+- Declarar variables sin declarar el tipo
+- Usar `print()` con f-strings
+- Identificar las diferencias clave de sintaxis entre Java y Python
+- Hacer calculos aritmeticos basicos, incluyendo la diferencia entre `/` y `//`
+
+**No se espera que use funciones, clases, ni imports todavia.**
+
+---
+
+## Analogia clave 
+
+> "En Java para hacer tamales necesitas moldes especiales, papel, hoja de maiz, y que alguien supervise todo el proceso. En Python haces el mismo tamal pero en cazuela directa — menos pasos, mismo resultado."
+
+> "Las variables en Python son como cajas sin etiqueta de tipo. En Java la caja decia 'solo numeros enteros'. En Python la caja acepta lo que le pongas — tu decides que guarda."
+
+> "Los f-strings son como los carteles del OXXO: 'Total a pagar: $[cantidad]'. Tu ya defines el molde del mensaje y Python pone el valor donde va el corchete."
+
+---
+
+## Equivalente Java → Python
+
+| Java | Python | Nota importante |
+|------|--------|-----------------|
+| `int edad = 25;` | `edad = 25` | Sin tipo, sin punto y coma |
+| `double precio = 99.50;` | `precio = 99.50` | Python infiere que es float |
+| `String nombre = "Jess";` | `nombre = "Jess"` | Sin tipo |
+| `boolean activo = true;` | `activo = True` | **T mayuscula en Python** |
+| `System.out.println("hola")` | `print("hola")` | Mucho mas corto |
+| `"Hola " + nombre` | `f"Hola {nombre}"` | f-string es la forma Python |
+| `// comentario` | `# comentario` | Almohadilla en lugar de // |
+| `5 / 2 = 2` (entero) | `5 / 2 = 2.5` (siempre decimal!) | **Division diferente** |
+| `5 / 2.0 = 2.5` | `5 // 2 = 2` | `//` es la division entera en Python |
+
+---
+
+## Contenido teorico
+
+### 1.1 El programa minimo
+
+En Java el programa minimo era:
+```java
+public class HolaMundo {
+    public static void main(String[] args) {
+        System.out.println("Hola Mundo");
+    }
+}
 ```
 
-Python tiene menos "ceremonia". No necesitas declarar la clase, ni el tipo de las variables, ni los puntos y coma.
-
----
-
-## Variables en Python
-
+En Python el mismo programa es:
 ```python
-# Java: int edad = 25;
-edad = 25              # Python: sin tipo, sin ;
-
-# Java: double precio = 99.50;
-precio = 99.50
-
-# Java: String nombre = "Jess";
-nombre = "Jess"
-
-# Java: boolean activo = true;
-activo = True          # en Python es True/False (con mayuscula)
+# hola_mundo.py
+print("Hola Mundo")   # eso es todo — sin clase, sin main, sin ;
 ```
 
-Python deduce el tipo automaticamente. A esto se le llama **tipado dinamico**.
+**Punto clave para Jess:** en Python el archivo ya ES el programa. No hay que envolver nada en una clase. No hay `main`. El codigo corre de arriba hacia abajo directamente.
 
----
+### 1.2 Variables — tipado dinamico
 
-## Imprimir con print()
+Python deduce el tipo automaticamente. A esto se le llama **tipado dinamico**:
+
+```python
+nombre = "Jess"        # Python infiere: esto es str (texto)
+edad = 22              # Python infiere: esto es int (entero)
+estatura = 1.65        # Python infiere: esto es float (decimal)
+activo = True          # Python infiere: esto es bool — OJO: T mayuscula
+```
+
+Para verificar el tipo (equivalente a ver el tipo en Java):
+```python
+print(type(nombre))    # <class 'str'>
+print(type(edad))      # <class 'int'>
+print(type(estatura))  # <class 'float'>
+print(type(activo))    # <class 'bool'>
+```
+
+### 1.3 Imprimir con print() — los 3 estilos
 
 ```python
 nombre = "Jess"
 edad = 22
 
-# Concatenar (como en Java con +)
-print("Me llamo " + nombre)
+# Estilo 1: concatenacion con + (como en Java)
+print("Me llamo " + nombre + " y tengo " + str(edad) + " anos")
+# OJO: si mezclas str con int con +, Python falla — necesitas str(edad)
 
-# Forma Python idiomatica: f-strings (mas comodo)
-print(f"Me llamo {nombre} y tengo {edad} años")
+# Estilo 2: f-string (la forma moderna y recomendada en Python)
+print(f"Me llamo {nombre} y tengo {edad} anos")
+# Las {} ponen el valor de la variable directamente
 
-# Con coma (agrega espacio automatico)
-print("Hola", nombre, "tienes", edad, "años")
+# Estilo 3: comas en print (agrega espacio automaticamente)
+print("Me llamo", nombre, "y tengo", edad, "anos")
+# Cada coma agrega un espacio entre los valores
 ```
 
-Los **f-strings** (`f"texto {variable}"`) son la forma moderna en Python. Muy facil.
+**Recomendacion para Jess:** usar siempre el estilo 2 (f-string). Es el mas limpio y el que se usa en el trabajo real.
 
----
+### 1.4 Tipos de datos principales
 
-## Entrada del usuario
+| Tipo Python | Equivalente Java | Para que | Ejemplo |
+|-------------|-----------------|----------|---------|
+| `int` | `int` / `long` | Numeros enteros | `edad = 25` |
+| `float` | `double` | Numeros decimales | `precio = 99.50` |
+| `str` | `String` | Texto | `nombre = "Jess"` |
+| `bool` | `boolean` | Verdadero o falso | `activo = True` |
 
-```python
-# Java: Scanner sc = new Scanner(System.in); String nombre = sc.nextLine();
-nombre = input("¿Como te llamas? ")    # Python: una sola linea
-
-# Para numeros hay que convertir (igual que en Java con parseInt)
-edad = int(input("¿Cuantos años tienes? "))
-precio = float(input("¿Cual es el precio? "))
-```
-
----
-
-## Operadores — identicos a Java
+### 1.5 Aritmetica — la diferencia critica
 
 ```python
 a = 10
 b = 3
 
-print(a + b)   # 13
-print(a - b)   # 7
-print(a * b)   # 30
-print(a / b)   # 3.333...  (siempre da decimales en Python!)
-print(a // b)  # 3  (division entera — necesitas // para esto)
-print(a % b)   # 1
-print(a ** b)  # 1000  (potencia — en Java era Math.pow)
+print(a + b)    # 13   — suma, igual que Java
+print(a - b)    # 7    — resta, igual que Java
+print(a * b)    # 30   — multiplicacion, igual que Java
+print(a / b)    # 3.333...  — OJO! siempre decimal en Python
+print(a // b)   # 3    — division entera (necesitas // dos diagonales)
+print(a % b)    # 1    — modulo/residuo, igual que Java
+print(a ** b)   # 1000 — potencia (en Java era Math.pow(a, b))
 ```
+
+**La trampa mas comun:** en Java `10 / 3` da `3` (division entera). En Python `10 / 3` da `3.333...`. Para division entera en Python usa `//`.
 
 ---
 
-## Condicionales — sin parentesis, con dos puntos
+## Errores comunes
+
+1. **`True` y `False` con minuscula:** escribir `true` o `false` (como en Java) causa `NameError` en Python. Siempre son `True` / `False` con T y F mayusculas.
+
+2. **Concatenar str con int usando `+`:** `"Tengo " + 22 + " anos"` falla en Python. Necesitas `f"Tengo {22} anos"` o `"Tengo " + str(22) + " anos"`.
+
+3. **Division entera:** esperar que `10 / 3` de `3` como en Java. En Python da `3.333...`. Para division entera usar `//`.
+
+4. **Punto y coma al final:** escribir `nombre = "Jess";` no es error en Python (lo ignora), pero es incorrecto estilo Python. Nunca usar `;` al final.
+
+5. **Indentacion con tabs mezclados con espacios:** Python es MUY estricto con la indentacion. Usar solo espacios (4 espacios por nivel es el estandar). VS Code lo hace automaticamente.
+
+6. **Mayusculas en nombres de variables:** Python es case-sensitive igual que Java. `Nombre` y `nombre` son variables diferentes.
+
+---
+
+## Soluciones
+
+### Ejercicio 1 — Datos de la jugadora
 
 ```python
-edad = 20
+# Variables con la informacion de la jugadora
+nombre = "Jess"         # str: texto entre comillas
+edad = 25               # int: numero entero sin decimales
+altura = 1.65           # float: numero con punto decimal
+peso = 58.5             # float: kilogramos
+deporte = "futbol"      # str: texto
+activo = True           # bool: True con T mayuscula
 
-# Java: if (edad >= 18) { ... }
-if edad >= 18:
-    print("Mayor de edad")    # la indentacion reemplaza a las llaves {}
-elif edad >= 15:
-    print("Adolescente")
+# Imprimir cada dato con f-string
+# La f antes de las comillas activa los {}
+print(f"Nombre: {nombre}")
+print(f"Edad: {edad} anos")
+print(f"Altura: {altura} m")
+print(f"Peso: {peso} kg")
+print(f"Deporte: {deporte}")
+print(f"Activo: {activo}")
+```
+
+**Que evaluar:** que use f-strings (no concatenacion con +) y que no ponga `;` al final de cada linea.
+
+### Ejercicio 2 — Bio multilingue
+
+```python
+# Pedir datos al usuario con input()
+# input() siempre devuelve texto (str) — no hay que convertir aqui
+nombre = input("Tu nombre: ")
+ciudad = input("Tu ciudad: ")
+hobby = input("Tu hobby favorito: ")
+
+# Usar los datos en 3 idiomas diferentes
+# El \n dentro del f-string agrega una linea en blanco antes
+print(f"\nEspanol: Me llamo {nombre}, soy de {ciudad} y me gusta {hobby}.")
+print(f"English: My name is {nombre}, I am from {ciudad} and I like {hobby}.")
+print(f"Frances: Je m'appelle {nombre}, je suis de {ciudad} et j'aime {hobby}.")
+```
+
+### Ejercicio 3 (Reto) — Calculadora de IMC
+
+```python
+# Leer peso y altura como numeros decimales
+# float() convierte el texto que devuelve input() a numero decimal
+peso = float(input("Tu peso en kg: "))
+altura = float(input("Tu altura en metros (ej. 1.65): "))
+
+# Calcular IMC: peso dividido entre la altura al cuadrado
+# ** es potencia en Python (en Java era Math.pow)
+imc = peso / (altura ** 2)
+
+# Clasificar el IMC con if/elif/else
+if imc < 18.5:
+    categoria = "Bajo peso"
+elif imc < 25:              # elif = else if en Java
+    categoria = "Peso normal"
+elif imc < 30:
+    categoria = "Sobrepeso"
 else:
-    print("Menor de edad")
+    categoria = "Obesidad"
 
-# NO SE NECESITAN parentesis ni llaves — la indentacion define el bloque
+# El :.2f dentro del {} formatea el numero a 2 decimales
+print(f"\nTu IMC: {imc:.2f}")
+print(f"Categoria: {categoria}")
 ```
 
----
-
-## Ciclos
-
-```python
-# for — recorre un rango
-for i in range(1, 6):     # 1, 2, 3, 4, 5
-    print(i)
-
-# for — recorre una lista
-frutas = ["manzana", "pera", "uva"]
-for fruta in frutas:
-    print(fruta)
-
-# while — identico a Java
-n = 0
-while n < 5:
-    print(n)
-    n += 1
-```
+**Nota para el docente:** el reto usa `if/elif/else` que es S3 del plan maestro original pero se ve en S1 de la teoria del alumno porque es "traduccion" directa de Java. Es aceptable que Jess lo use si ya lo vio en Java — no es concepto nuevo para ella, solo nueva sintaxis.
 
 ---
-
-## Tabla de equivalencias Java → Python
-
-| Java | Python |
-|------|--------|
-| `int x = 5;` | `x = 5` |
-| `System.out.println("hola")` | `print("hola")` |
-| `Scanner + nextLine()` | `input()` |
-| `if (condicion) { }` | `if condicion:` + indentacion |
-| `for (int i=0; i<10; i++)` | `for i in range(10):` |
-| `true / false` | `True / False` |
-| `// comentario` | `# comentario` |
-| `/* bloque */` | `""" bloque """` |
-
----
-
-## A recordar
-
-- Sin punto y coma al final de las lineas
-- Sin llaves `{}` — la indentacion (espacios) define los bloques
-- Sin declarar el tipo de las variables
-- `True/False` con mayuscula
-- `f"texto {variable}"` para strings con variables
-- `/` siempre da decimales, `//` es division entera
-
----
-
-[[03_Practicas/semana-01]]
